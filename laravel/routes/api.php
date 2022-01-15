@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/transfer', 'App\Http\Controllers\api\CurrenciesController@store');
+Route::post('/transfer', 'App\Http\Controllers\api\CurrenciesController@currencyTransform');
 
 // Route::middleware('auth:api')->group(function(){
 //     Route::apiResource('currencise','api\CurrenciesController');
