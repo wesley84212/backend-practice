@@ -1,0 +1,122 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "wesley84212@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://api-host.dev.app",
+            "description": "測試區主機"
+        },
+        {
+            "url": "https://api-host.production.app",
+            "description": "正式區主機"
+        },
+        {
+            "url": "http://localhost",
+            "description": "Localhost"
+        }
+    ],
+    "paths": {
+        "/api/transfer": {
+            "post": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "貨幣轉換",
+                "description": "貨幣轉換",
+                "operationId": "currencyTransfer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "currency": {
+                                        "type": "string"
+                                    },
+                                    "transCurrency": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "currency": "TWD",
+                                    "transCurrency": "USD",
+                                    "price": 10
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The response code",
+                                            "type": "integer"
+                                        },
+                                        "result": {
+                                            "description": "The response price transfer",
+                                            "type": "string|number"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status": 200,
+                                        "result": "0.33"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "currency": {
+                                            "description": "error message",
+                                            "type": "string"
+                                        },
+                                        "transCurrency": {
+                                            "description": "error message",
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "description": "error message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "currency": ["The currency or transCurrency need in TWD,JPY,USD"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
