@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\CurrencyCode;
+use App\Rules\InputAttribute;
 
 class CurrenciesController extends Controller
 {
@@ -83,8 +84,8 @@ class CurrenciesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'currency' => ['required', 'string', new CurrencyCode],
-            'transCurrency' => 'required|string',
-            'price' => 'required|numeric',
+            'transCurrency' => ['required', 'string', new CurrencyCode],
+            'price' => ['required', 'numeric']
         ]);
         return $validator;
     }
