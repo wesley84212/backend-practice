@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "L5 OpenApi",
-        "description": "L5 Swagger OpenApi description",
+        "title": "Currency Test Api",
+        "description": "Currency Test Api Swagger Document",
         "contact": {
             "email": "wesley84212@gmail.com"
         },
@@ -14,16 +14,12 @@
     },
     "servers": [
         {
-            "url": "https://api-host.dev.app",
-            "description": "測試區主機"
-        },
-        {
-            "url": "https://api-host.production.app",
-            "description": "正式區主機"
-        },
-        {
-            "url": "http://localhost",
+            "url": "http://localhost/public",
             "description": "Localhost"
+        },
+        {
+            "url": "http://mybackend-test.herokuapp.com/",
+            "description": "Server"
         }
     ],
     "paths": {
@@ -62,7 +58,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "success",
+                        "description": "ok",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -86,7 +82,7 @@
                         }
                     },
                     "400": {
-                        "description": "error",
+                        "description": "ok",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -97,11 +93,11 @@
                                         },
                                         "transCurrency": {
                                             "description": "error message",
-                                            "type": "string"
+                                            "type": "Array"
                                         },
                                         "price": {
                                             "description": "error message",
-                                            "type": "string"
+                                            "type": "Array"
                                         }
                                     },
                                     "type": "object",
