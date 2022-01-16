@@ -10,8 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
 * @OA\Info(
 *      version="1.0.0",
-*      title="L5 OpenApi",
-*      description="L5 Swagger OpenApi description",
+*      title="Currency Test Api",
+*      description="Currency Test Api Swagger Document",
 *      @OA\Contact(
 *          email="wesley84212@gmail.com"
 *      ),
@@ -26,6 +26,10 @@ use Illuminate\Routing\Controller as BaseController;
 *      url = "http://localhost",
 *      description="Localhost"
 * )
+* @OA\server(
+*       url = "http://mybackend-test.herokuapp.com/" ,
+*       description="Server"
+*)
 */
 
 class Controller extends BaseController
