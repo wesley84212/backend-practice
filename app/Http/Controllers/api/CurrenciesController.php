@@ -138,7 +138,7 @@ class CurrenciesController extends Controller
         $validator = Validator::make($request->all(), [
             'currency' => ['required', 'string', new CurrencyCode],
             'transCurrency' => ['required', 'string', new CurrencyCode],
-            'price' => ['required', 'numeric']
+            'price' => ['required', 'numeric','min:0','not_in:0']
         ]);
         return $validator;
     }
