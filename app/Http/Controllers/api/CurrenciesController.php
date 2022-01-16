@@ -53,15 +53,15 @@ class CurrenciesController extends Controller
      *      ),
      *     @OA\Response(
      *         response="200",
-     *         description="ok",
+     *         description="success",
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
      *                 @OA\Schema(
      *                     @OA\Property(
      *                         property="status",
-     *                         type="integer",
-     *                         description="The response code"
+     *                         type="string",
+     *                         description="The response status"
      *                     ),
      *                     @OA\Property(
      *                         property="result",
@@ -78,26 +78,27 @@ class CurrenciesController extends Controller
      *     ),
      *     @OA\Response(
      *         response="400",
-     *         description="ok",
+     *         description="error",
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
      *                 @OA\Schema(
      *                     @OA\Property(
-     *                         property="currency",
+     *                         property="status",
      *                         type="string",
-     *                         description="error message"
+     *                         description="The response status"
      *                     ),
      *                     @OA\Property(
-     *                         property="transCurrency",
-     *                         type="Array",
+     *                         property="errorMsg",
+     *                         type="object",
      *                         description="error message"
      *                     ),
-     *                     @OA\Property(
-     *                         property="price",
-     *                         type="Array",
-     *                         description="error message"
-     *                     )
+     *                     example={"status": "error",
+     *                              "errorMsg": {
+     *                                  "currency": [
+     *                                       "The currency or transCurrency need in TWD,JPY,USD"
+     *                                    ]
+     *                             }
      *                 )
      *             )
      *         }
@@ -117,7 +118,11 @@ class CurrenciesController extends Controller
         if ($validator->fails()) {
             $errors = $validator->errors();
             $statusCode = 400;
-            return response()->json($errors, $statusCode);
+            $errorMsg = [
+                "status" => "error",
+                "errorMsg" => $errors
+            ];
+            return response()->json($errorMsg, $statusCode);
         }
 
         $data = $request->all();
@@ -125,7 +130,7 @@ class CurrenciesController extends Controller
         $transCurrency = $data["transCurrency"];
         $price = $data["price"];
         $result = Currencies::currencyTransform($currency, $transCurrency, $price);
-        return response()->json(['status' => 200, 'result' => $result]);
+        return response()->json(['status' => "success", 'result' => $result]);
     }
 
     private function inputCheck($request)
