@@ -22,9 +22,11 @@ class CurrencyTest extends TestCase
         ];
         json_encode($testData);
         $response = $this->post('/api/transfer', $testData);
-        $this->assertEquals($response->json()["currency"][0],"The currency must be a string.");
-        $this->assertEquals($response->json()["transCurrency"][0],"The trans currency must be a string.");
-        $this->assertEquals($response->json()["price"][0],"The price must be a number.");
+        var_dump($response->json());
+        $this->assertEquals($response->json()["status"],"error");
+        $this->assertEquals($response->json()["errorMsg"]["currency"][0],"The currency must be a string.");
+        $this->assertEquals($response->json()["errorMsg"]["transCurrency"][0],"The trans currency must be a string.");
+        $this->assertEquals($response->json()["errorMsg"]["price"][0],"The price must be a number.");
         $response->assertStatus(400);
     }
 
@@ -36,8 +38,9 @@ class CurrencyTest extends TestCase
         ];
         json_encode($testData);
         $response = $this->post('/api/transfer', $testData);
-        $this->assertEquals($response->json()["currency"][0],"The currency or transCurrency need in TWD,JPY,USD");
-        $this->assertEquals($response->json()["transCurrency"][0],"The currency or transCurrency need in TWD,JPY,USD");
+        $this->assertEquals($response->json()["status"],"error");
+        $this->assertEquals($response->json()["errorMsg"]["currency"][0],"The currency or transCurrency need in TWD,JPY,USD");
+        $this->assertEquals($response->json()["errorMsg"]["transCurrency"][0],"The currency or transCurrency need in TWD,JPY,USD");
         $response->assertStatus(400);
     }
     public function test_checkemptydata(){
@@ -46,9 +49,10 @@ class CurrencyTest extends TestCase
         ];
         json_encode($testData);
         $response = $this->post('/api/transfer', $testData);
-        $this->assertEquals($response->json()["currency"][0],"The currency field is required.");
-        $this->assertEquals($response->json()["transCurrency"][0],"The trans currency field is required.");
-        $this->assertEquals($response->json()["price"][0],"The price field is required.");
+        $this->assertEquals($response->json()["status"],"error");
+        $this->assertEquals($response->json()["errorMsg"]["currency"][0],"The currency field is required.");
+        $this->assertEquals($response->json()["errorMsg"]["transCurrency"][0],"The trans currency field is required.");
+        $this->assertEquals($response->json()["errorMsg"]["price"][0],"The price field is required.");
         $response->assertStatus(400);
     }
 }

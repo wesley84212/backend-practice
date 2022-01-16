@@ -58,14 +58,14 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "ok",
+                        "description": "success",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "status": {
-                                            "description": "The response code",
-                                            "type": "integer"
+                                            "description": "The response status",
+                                            "type": "string"
                                         },
                                         "result": {
                                             "description": "The response price transfer",
@@ -74,7 +74,7 @@
                                     },
                                     "type": "object",
                                     "example": {
-                                        "status": 200,
+                                        "status": "success",
                                         "result": "0.33"
                                     }
                                 }
@@ -82,27 +82,28 @@
                         }
                     },
                     "400": {
-                        "description": "ok",
+                        "description": "error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "currency": {
-                                            "description": "error message",
+                                        "starus": {
+                                            "description": "The response status",
                                             "type": "string"
                                         },
-                                        "transCurrency": {
+                                        "errorMsg": {
                                             "description": "error message",
-                                            "type": "Array"
-                                        },
-                                        "price": {
-                                            "description": "error message",
-                                            "type": "Array"
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object",
                                     "example": {
-                                        "currency": ["The currency or transCurrency need in TWD,JPY,USD"]
+                                        "status": "error",
+                                        "errorMsg": {
+                                            "currency": [
+                                                "The currency or transCurrency need in TWD,JPY,USD"
+                                            ]
+                                        }
                                     }
                                 }
                             }
